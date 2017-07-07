@@ -3,6 +3,7 @@ package fr.pizzeria.dao;
 import java.util.ArrayList;
 import java.util.List;
 
+import fr.pizzeria.exception.SavePizzaException;
 import fr.pizzeria.model.Pizza;
 
 public class PizzaDaoMemoire implements IPizzaDao {
@@ -21,7 +22,11 @@ public class PizzaDaoMemoire implements IPizzaDao {
 	}
 	
 	@Override
-	public boolean saveNewPizza(Pizza pizza) {
+	public boolean saveNewPizza(Pizza pizza) throws SavePizzaException {
+//		if (pizza.getCode().isEmpty() && pizza.getNom().isEmpty() && pizza.getPrix() == null) {
+//			throw new SavePizzaException();
+//		}
+//		
 		carteDesPizzas.add(pizza);
 		return false;
 	}

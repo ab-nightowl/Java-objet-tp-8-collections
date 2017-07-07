@@ -16,7 +16,7 @@ public class SupprimerPizzaOptionMenu extends OptionMenu {
 		
 		do {
 			System.out.println("Veuillez choisir le code de la pizza à supprimer (en majuscules)");
-			userChoice = sc.nextLine();
+			userChoice = sc.nextLine().trim();
 			
 			trouve = dao.findByCode(userChoice);
 			

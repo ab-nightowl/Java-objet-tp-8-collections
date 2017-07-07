@@ -17,7 +17,7 @@ public class MettreAJourPizzaOptionMenu extends OptionMenu {
 	
 		do {
 			System.out.println("Veuillez choisir le code de la pizza à modifier (en majuscules)");
-			userChoice = sc.nextLine();
+			userChoice = sc.nextLine().trim();
 			
 			trouve = dao.findByCode(userChoice);
 			if (!trouve){
@@ -27,13 +27,13 @@ public class MettreAJourPizzaOptionMenu extends OptionMenu {
 		} while(!trouve);
 		
 		System.out.println("Veuillez saisir le code");
-		String nouveauCode = sc.nextLine();
+		String nouveauCode = sc.nextLine().trim();
 
 		System.out.println("Veuillez saisir le nom (sans espace)");
-		String nouveauNom = sc.nextLine();
+		String nouveauNom = sc.nextLine().trim();
 
 		System.out.println("Veuillez saisir le prix");
-		Integer nouveauPrix = Integer.parseInt(sc.nextLine());
+		Integer nouveauPrix = Integer.parseInt(sc.nextLine().trim());
 
 		Pizza nouvellePizza = new Pizza(nouveauCode, nouveauNom, nouveauPrix);
 		

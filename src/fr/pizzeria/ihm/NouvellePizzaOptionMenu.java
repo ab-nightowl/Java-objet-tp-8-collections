@@ -1,6 +1,7 @@
 package fr.pizzeria.ihm;
 
 import fr.pizzeria.dao.PizzaDaoMemoire;
+import fr.pizzeria.exception.SavePizzaException;
 import fr.pizzeria.model.Pizza;
 
 public class NouvellePizzaOptionMenu extends OptionMenu {
@@ -15,17 +16,77 @@ public class NouvellePizzaOptionMenu extends OptionMenu {
 	
 	public boolean execute() {
 		
-		System.out.println("Veuillez saisir le code");
-		String code = sc.nextLine();
-
-		System.out.println("Veuillez saisir le nom (sans espace)");
-		String nomPizza = sc.nextLine();
-
-		System.out.println("Veuillez saisir le prix");
-		Integer prix = Integer.parseInt(sc.nextLine());
+		String code = "";
+		String nom = "";
+		double prix = 0;
 		
-		Pizza nouvellePizza = new Pizza(code, nomPizza, prix);
-		dao.saveNewPizza(nouvellePizza);
+		boolean saisieCorrecte = false;
+		
+		do {
+			try {
+				System.out.println("Veuillez saisir le code");
+				code = sc.nextLine().trim();
+				
+				if (code.isEmpty() || code.length() != 3 || !code.matches("^[A-Z]{3}$")) {
+					throw new SavePizzaException("Veuillez saisir un code valide");
+				}
+				
+				saisieCorrecte = true;
+				
+			} catch (SavePizzaException e) {
+				// TODO Auto-generated catch block
+				System.out.println(e.getMessage());
+			}
+				
+		} while (!saisieCorrecte);
+		
+		
+		do {
+			try {
+				System.out.println("Veuillez saisir le nom (sans espace)");
+				nom = sc.nextLine().trim();
+				
+				if (nom.isEmpty()) {
+					throw new SavePizzaException("Veuillez saisir un nom valide");
+				}
+				
+				saisieCorrecte = true;
+				
+			} catch (SavePizzaException e) {
+				// TODO Auto-generated catch block
+				System.out.println(e.getMessage());
+			}
+				
+		} while (!saisieCorrecte);
+		
+		
+		do {
+			try {
+				System.out.println("Veuillez saisir le prix");
+				String saisie = sc.nextLine().trim();
+				if (saisie.isEmpty()){
+					throw new SavePizzaException("Veuillez saisir un prix valide");
+				}
+				prix = Integer.parseInt(saisie);
+				
+				saisieCorrecte = true;
+				
+			} catch (SavePizzaException e) {
+				// TODO Auto-generated catch block
+				System.out.println(e.getMessage());
+			}
+				
+		} while (!saisieCorrecte);
+		
+		
+		Pizza nouvellePizza = new Pizza(code, nom, prix);
+				
+		try {
+			dao.saveNewPizza(nouvellePizza);
+		} catch (SavePizzaException e) {
+			// TODO Auto-generated catch block
+			System.out.println(e.getMessage());
+		}
 
 		return false;
 	}
