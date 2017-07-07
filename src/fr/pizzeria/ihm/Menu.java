@@ -1,5 +1,8 @@
 package fr.pizzeria.ihm;
 
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Scanner;
 
 import fr.pizzeria.dao.PizzaDaoMemoire;
@@ -17,7 +20,7 @@ public class Menu {
 	SupprimerPizzaOptionMenu supprimerPizza;
 	SortirOptionMenu sortir;
 	
-	OptionMenu[] menu;
+	Map<Integer,OptionMenu> menu = new HashMap<Integer,OptionMenu>();
 	
 	public Menu() {
 		this.dao = new PizzaDaoMemoire();
@@ -30,12 +33,11 @@ public class Menu {
 		this.supprimerPizza = new SupprimerPizzaOptionMenu(dao);
 		this.sortir = new SortirOptionMenu(dao);
 		
-		this.menu = new OptionMenu[5];
-		this.menu[0] = listerPizza;
-		this.menu[1] = nouvellePizza;
-		this.menu[2] = mettreAJourPizza;
-		this.menu[3] = supprimerPizza;
-		this.menu[4] = sortir;
+		menu.put(new Integer(1), listerPizza);
+		menu.put(new Integer(2), nouvellePizza);
+		menu.put(new Integer(3), mettreAJourPizza);
+		menu.put(new Integer(4), supprimerPizza);
+		menu.put(new Integer(5), sortir);
 		
 	}
 	
@@ -43,7 +45,7 @@ public class Menu {
 	public void manage() {
 		while (!(userInput.equals("99"))) {
 			System.out.println("***** Pizzeria Administration *****");
-			Menu.afficher(menu);
+			afficher();
 			userInput = sc.nextLine();
 
 			switch (userInput) {
@@ -71,13 +73,15 @@ public class Menu {
 				break;
 	
 				default:
-					Menu.afficher(menu);
+					afficher();
 			}
 		}
 	}
 
-	public static void afficher(OptionMenu[] menu) {
-		for (OptionMenu option : menu) {
+	public void afficher() {
+		Collection<OptionMenu> options = menu.values();
+		
+		for (OptionMenu option : options) {
 			System.out.println(option.getLibelle());
 		}
 	}
