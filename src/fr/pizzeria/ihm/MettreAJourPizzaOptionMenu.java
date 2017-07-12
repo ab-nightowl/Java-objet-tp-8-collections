@@ -1,6 +1,7 @@
 package fr.pizzeria.ihm;
 
 import fr.pizzeria.dao.PizzaDaoMemoire;
+import fr.pizzeria.model.CategoriePizza;
 import fr.pizzeria.model.Pizza;
 
 public class MettreAJourPizzaOptionMenu extends OptionMenu {
@@ -34,8 +35,13 @@ public class MettreAJourPizzaOptionMenu extends OptionMenu {
 
 		System.out.println("Veuillez saisir le prix");
 		Integer nouveauPrix = Integer.parseInt(sc.nextLine().trim());
-
-		Pizza nouvellePizza = new Pizza(nouveauCode, nouveauNom, nouveauPrix);
+		
+		System.out.println("Veuillez saisir une catégorie de la liste :");
+		System.out.println(PizzaDaoMemoire.CATEGORIES);
+		String saisie = sc.nextLine().trim();
+		CategoriePizza nouvelleCategorie = new CategoriePizza(saisie);
+		
+		Pizza nouvellePizza = new Pizza(nouveauCode, nouveauNom, nouveauPrix, nouvelleCategorie);
 		
 		dao.updatePizza(userChoice, nouvellePizza);
 
