@@ -11,13 +11,13 @@ public class MettreAJourPizzaOptionMenu extends OptionMenu {
 	}
 
 	public String getLibelle() {
-		return "3. Mettre à jour une pizza";
+		return "3. Mettre ï¿½ jour une pizza";
 	}
 
 	public boolean execute() {
 	
 		do {
-			System.out.println("Veuillez choisir le code de la pizza à modifier (en majuscules)");
+			System.out.println("Veuillez choisir le code de la pizza ï¿½ modifier (en majuscules)");
 			userChoice = sc.nextLine().trim();
 			
 			trouve = dao.findByCode(userChoice);
@@ -36,10 +36,10 @@ public class MettreAJourPizzaOptionMenu extends OptionMenu {
 		System.out.println("Veuillez saisir le prix");
 		Integer nouveauPrix = Integer.parseInt(sc.nextLine().trim());
 		
-		System.out.println("Veuillez saisir une catégorie de la liste :");
-		System.out.println(PizzaDaoMemoire.CATEGORIES);
+		System.out.println("Veuillez saisir une catï¿½gorie de la liste :");
+		System.out.println(CategoriePizza.values());
 		String saisie = sc.nextLine().trim();
-		CategoriePizza nouvelleCategorie = new CategoriePizza(saisie);
+		CategoriePizza nouvelleCategorie = CategoriePizza.valueOf(saisie);
 		
 		Pizza nouvellePizza = new Pizza(nouveauCode, nouveauNom, nouveauPrix, nouvelleCategorie);
 		

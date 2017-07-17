@@ -2,6 +2,7 @@ package fr.pizzeria.ihm;
 
 import fr.pizzeria.dao.PizzaDaoMemoire;
 import fr.pizzeria.exception.SavePizzaException;
+import fr.pizzeria.model.CategoriePizza;
 import fr.pizzeria.model.Pizza;
 
 public class NouvellePizzaOptionMenu extends OptionMenu {
@@ -19,6 +20,7 @@ public class NouvellePizzaOptionMenu extends OptionMenu {
 		String code = "";
 		String nom = "";
 		double prix = 0;
+		CategoriePizza categorie = CategoriePizza.VIANDE;
 		
 		boolean saisieCorrecte = false;
 		
@@ -34,7 +36,6 @@ public class NouvellePizzaOptionMenu extends OptionMenu {
 				saisieCorrecte = true;
 				
 			} catch (SavePizzaException e) {
-				// TODO Auto-generated catch block
 				System.out.println(e.getMessage());
 			}
 				
@@ -53,7 +54,6 @@ public class NouvellePizzaOptionMenu extends OptionMenu {
 				saisieCorrecte = true;
 				
 			} catch (SavePizzaException e) {
-				// TODO Auto-generated catch block
 				System.out.println(e.getMessage());
 			}
 				
@@ -72,19 +72,36 @@ public class NouvellePizzaOptionMenu extends OptionMenu {
 				saisieCorrecte = true;
 				
 			} catch (SavePizzaException e) {
-				// TODO Auto-generated catch block
+				System.out.println(e.getMessage());
+			}
+				
+		} while (!saisieCorrecte);
+		
+		do {
+			try {
+				System.out.println("Veuillez saisir une catégorie de la liste (en majuscules) :");
+				System.out.println(CategoriePizza.values());
+				String saisie = sc.nextLine().trim().toUpperCase();
+				categorie = CategoriePizza.valueOf(saisie);
+				
+				if (saisie.isEmpty()) {
+					throw new SavePizzaException("Veuillez saisir une catégorie valide");
+				}
+				
+				saisieCorrecte = true;
+				
+			} catch (SavePizzaException e) {
 				System.out.println(e.getMessage());
 			}
 				
 		} while (!saisieCorrecte);
 		
 		
-		Pizza nouvellePizza = new Pizza(code, nom, prix);
+		Pizza nouvellePizza = new Pizza(code, nom, prix, categorie);
 				
 		try {
 			dao.saveNewPizza(nouvellePizza);
 		} catch (SavePizzaException e) {
-			// TODO Auto-generated catch block
 			System.out.println(e.getMessage());
 		}
 
