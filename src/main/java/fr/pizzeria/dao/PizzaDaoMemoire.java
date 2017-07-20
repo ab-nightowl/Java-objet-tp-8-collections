@@ -24,10 +24,6 @@ public class PizzaDaoMemoire implements IPizzaDao {
 	
 	@Override
 	public boolean saveNewPizza(Pizza pizza) throws SavePizzaException {
-//		if (pizza.getCode().isEmpty() && pizza.getNom().isEmpty() && pizza.getPrix() == null) {
-//			throw new SavePizzaException();
-//		}
-//		
 		carteDesPizzas.add(pizza);
 		return false;
 	}
