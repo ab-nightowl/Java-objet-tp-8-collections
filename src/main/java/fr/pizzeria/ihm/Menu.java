@@ -20,7 +20,7 @@ public class Menu {
 	SupprimerPizzaOptionMenu supprimerPizza;
 	SortirOptionMenu sortir;
 	
-	Map<Integer,OptionMenu> menu = new HashMap<Integer,OptionMenu>();
+	Map<Integer,OptionMenu> actions = new HashMap<Integer,OptionMenu>();
 	
 	public Menu() {
 		this.dao = new PizzaDaoMemoire();
@@ -33,11 +33,11 @@ public class Menu {
 		this.supprimerPizza = new SupprimerPizzaOptionMenu(dao);
 		this.sortir = new SortirOptionMenu(dao);
 		
-		menu.put(new Integer(1), listerPizza);
-		menu.put(new Integer(2), nouvellePizza);
-		menu.put(new Integer(3), mettreAJourPizza);
-		menu.put(new Integer(4), supprimerPizza);
-		menu.put(new Integer(5), sortir);
+		actions.put(1, listerPizza);
+		actions.put(2, nouvellePizza);
+		actions.put(3, mettreAJourPizza);
+		actions.put(4, supprimerPizza);
+		actions.put(99, sortir);
 		
 	}
 	
@@ -79,7 +79,7 @@ public class Menu {
 	}
 
 	public void afficher() {
-		Collection<OptionMenu> options = menu.values();
+		Collection<OptionMenu> options = actions.values();
 		
 		for (OptionMenu option : options) {
 			System.out.println(option.getLibelle());
